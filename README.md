@@ -38,12 +38,15 @@ First thing, of course, is to get ourselves a copy of FFmpeg, but we encounter a
 Let's get the gyan.dev copy.  Just get the full-git release; may as well get the full version. The version shouldn't matter. I'm writing this on the 7th of February, 2021, so maybe this may be outdated if you're reading this in the future, but then again, FFmpeg is one of the backbones of the modern video world, so it shouldn't change too much.
 
 ![enter image description here](https://i.imgur.com/9xSPpKx.png)
+
 Alright, that's our beautiful new copy of FFmpeg ready to go. Let's extract it:
 
 ![enter image description here](https://i.imgur.com/IhNNTcP.png)
+
 Alright. Let's copy an image into the \bin directory. This will be today's test subject:
 
-![white, pink, purple, and green flowers wall decor](https://i.imgur.com/5IXouiI.jpg)[Photo](https://unsplash.com/photos/koYklSUjAXc) by [Amy Shamblen](https://unsplash.com/@amyshamblen) on [Unsplash](https://unsplash.com/)
+![white, pink, purple, and green flowers wall decor](https://i.imgur.com/5IXouiI.jpg)
+[Photo](https://unsplash.com/photos/koYklSUjAXc) by [Amy Shamblen](https://unsplash.com/@amyshamblen) on [Unsplash](https://unsplash.com/)
 
 As usual, convert this image into planar (keep this in mind for later) RAW, and we can finally dip our toes into the command line. For reasons that will be obvious later, I'd suggest a simple, 1-word name for the RAW image. I used the name "flowers.raw".
 
@@ -62,6 +65,7 @@ First thing you want to do right after opening Command Prompt is to change direc
 By the way, you don't have to actually type in that long mess of alphanumeric soup. Just go to the directory in Explorer, and click on the folder icon on the left side of the address bar.
 
 ![enter image description here](https://i.imgur.com/y7OJzG7.png)
+
 Press Ctrl+C to copy, then go back to Command Prompt, type in "cd", then press Ctrl+V to paste in the whole directory. Press Enter, and you've just changed to that directory in a few keystrokes (and a lot of mouse movement). Easy.
 
 Alright, let's check that it's actually working properly. Type in
@@ -147,6 +151,7 @@ Alright, let's use Irfanview to open up this image. The basic things to remember
  I've gone through and exported it to JPEG to share this, obviously, but you should be seeing something like this:
  
 ![enter image description here](https://i.imgur.com/lnkprkI.jpg)
+
 If that's correct, then we should be good. If not, please share it; the name of my game is databending, so the more distorted something gets, the better.
 
 ## Using FFmpeg to Convert Between Pixel Formats
@@ -158,15 +163,19 @@ Run:
 This converts an interleaved RGB 24-bit to planar YUV 4:4:4. Let's use YUView to open it.
 
 ![enter image description here](https://i.imgur.com/PgdkJ9l.png)
+
 Go to File > Open File..., and you'll see the Open File dialog. Not much here, just navigate to the FFmpeg folder and make sure the file type is:
 
 ![Any files (asterisk)](https://i.imgur.com/9xXDNLi.png)
+
 YUView will ask you what type of file it is, so just click OK, since it's correct:
 
 ![enter image description here](https://i.imgur.com/PAsz4Vb.png)
+
 You'll then see almost the same thing, but something's loaded in.
 
 ![enter image description here](https://i.imgur.com/7tB5mXN.png)
+
 Write the relevant parameters; set resolution to 1920x1920, and YUV format to YUV 4:4:4 8-bit. Zoom out a bit, and you'll see...
 ![](https://i.imgur.com/bWlxOSt.png)
 ### A diversion into planar and interleaved RGB, and how misinterpretation affects the output
@@ -180,7 +189,9 @@ Let's demonstrate with good old Irfanview. Open the original "flowers.raw" image
 The same thing happens. It's caused by planar images being opened as interleaved. 
 
 For those wondering, here's what happens in the reverse scenario; interleaved opened as planar:
+
 ![enter image description here](https://i.imgur.com/eWSPZAK.jpg)
+
 They're definitely interesting databends themselves, but I don't think I could write an entire article on just this.
 
 ### Digressing even harder, now about YUV
@@ -191,6 +202,7 @@ You know how RGB formats store the Red, Green, and Blue components of an image? 
 Y is the luminance or brightness component. This is literally a grayscale version of the image.
 
 ![enter image description here](https://i.imgur.com/70bTrp7.jpg)
+
 U is the blue-difference chroma component.
 
 ![enter image description here](https://i.imgur.com/XoadxOo.jpg)
@@ -209,9 +221,11 @@ As for what 4:4:4 means, this means "store the color information at the same res
 Right. So we now have a RAW YUV 4:4:4 image. Let's databend it like any other image. Open it in Audacity. As usual, we'll import with the following settings:
 
 ![enter image description here](https://i.imgur.com/hRg62Bm.png)
+
 And...
 
 ![enter image description here](https://i.imgur.com/DwwEsff.png)
+
 Since I'm a one-trick pony, I'll do my favorite trick: Paulstretch at 50 seconds, and Amplify to avoid clipping.
 
 ![enter image description here](https://i.imgur.com/HQPaZoz.png)
@@ -225,9 +239,11 @@ This isn't an exact science or anything, just add a minute or two of silence to 
 Export this audio as raw unsigned 8-bit, as usual. For those following along at home, name this one "flowers-ps50-yuv444p.raw"
 
 ![enter image description here](https://i.imgur.com/bAJozHO.png)
+
 ...and now we have this mess. Let's look at it in YUView for a bit.
 
 ![insert description here](https://i.imgur.com/2CjhIAr.jpg)
+
 Just looks like one of those Paulstretched interleaved RGB images. Don't worry, this isn't the final result.
 
 ### Using FFmpeg to convert from databent YUV 4:4:4 to  24-bit RGB
@@ -296,11 +312,13 @@ Translation: File not large enough, just pad out the end of the audio with (more
 If everything's gone right, we can now put this back into Irfanview and open it. As always, use planar, since our source image was planar.
 
 ![enter image description here](https://i.imgur.com/2N1R8D4.jpg)
+
 Standard Paulstretch image. 
 
 Let's do it again on the same image, but as a bog-standard 24-bit RGB raw image.
 
 ![enter image description here](https://i.imgur.com/aGP3Wyw.jpg)
+
 I mean, it's different. You get two images from one, pretty good deal, I'd say.
 
 ## Playing with different pixel formats
