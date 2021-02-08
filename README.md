@@ -194,27 +194,7 @@ For those wondering, here's what happens in the reverse scenario; interleaved op
 
 They're definitely interesting databends themselves, but I don't think I could write an entire article on just this.
 
-### Digressing even harder, now about YUV
-So, we now have these images encoded in YUV 4:4:4 format. "What's YUV, and why is it 4:4:4?"
 
-You know how RGB formats store the Red, Green, and Blue components of an image? YUV (technically, since it's digital, it should be YCbCr, but they're used interchangeably by basically everyone) is a format where you store the Y, U and V components.
-
-Y is the luminance or brightness component. This is literally a grayscale version of the image.
-
-![enter image description here](https://i.imgur.com/70bTrp7.jpg)
-
-U is the blue-difference chroma component.
-
-![enter image description here](https://i.imgur.com/XoadxOo.jpg)
-
-V is the red-difference chroma component.
-
-![](https://i.imgur.com/GBa1AJb.jpg)
-The reason why people do this is because of compression. Since our brightness/luminance/black-and-white perception is better than our color perception, smart people figured out that we can store the luminance data at a higher quality and resolution than the color parts. 
-
-One of those methods is called "[chroma subsampling](https://en.wikipedia.org/wiki/Chroma_subsampling)". This is literally storing the color information at a lower resolution than the brightness resolution. If you have a camera, chances are, it does exactly this, and you've never noticed this unless you really went deep and zoomed in as hard as possible on the images/video it produces.
-
-As for what 4:4:4 means, this means "store the color information at the same resolution as the brightness information". If the brightness information is 1920x1920, then the color information is also 1920x1920.
 
 ### Back on track
 
@@ -244,7 +224,9 @@ Export this audio as raw unsigned 8-bit, as usual. For those following along at 
 
 ![insert description here](https://i.imgur.com/2CjhIAr.jpg)
 
-Just looks like one of those Paulstretched interleaved RGB images. Don't worry, this isn't the final result.
+Just looks like one of those Paulstretched interleaved RGB images. Don't worry, this isn't the final result. 
+
+A note on YUV is found at the bottom of this article.
 
 ### Using FFmpeg to convert from databent YUV 4:4:4 to  24-bit RGB
 
@@ -254,7 +236,7 @@ Once that's done, run
 
 	ffmpeg -s 1920x1920 -f rawvideo -pix_fmt yuv444p -i flowers-ps50-yuv444p.raw -f rawvideo -pix_fmt rgb24 flowers-rgb24-ps50-yuv444p.raw
 
-This is the reverse process of what we did earlier; convert an image from YUV 4:4:4 plana into RGB 24-bit interleaved.
+This is the reverse process of what we did earlier; convert an image from YUV 4:4:4 planar into 24-bit interleaved RGB .
 
 You should see something like this:
 
@@ -344,7 +326,56 @@ I haven't even scratched the surface of what's possible with this. Try different
 
 If there's anything you'd like to add or change, contact me on GitHub at [multiplealiases](https://github.com/multiplealiases). 
 
+
+
+## Footnotes
+### On YUV
+"What's YUV, and why is it 4:4:4?"
+
+You know how RGB formats store the Red, Green, and Blue components of an image? YUV (technically, since it's digital, it should be YCbCr, but they're used interchangeably by basically everyone) is a format where you store the Y, U and V components.
+
+Y is the luminance or brightness component. This is literally a grayscale version of the image.
+
+![enter image description here](https://i.imgur.com/70bTrp7.jpg)
+
+U is the blue-difference chroma component.
+
+![enter image description here](https://i.imgur.com/XoadxOo.jpg)
+
+V is the red-difference chroma component.
+
+![](https://i.imgur.com/GBa1AJb.jpg)
+The reason why people do this is because of compression. Since our brightness/luminance/black-and-white perception is better than our color perception, smart people figured out that we can store the luminance data at a higher quality and resolution than the color parts. 
+
+One of those methods is called "[chroma subsampling](https://en.wikipedia.org/wiki/Chroma_subsampling)". This is literally storing the color information at a lower resolution than the brightness resolution. If you have a camera, chances are, it does exactly this, and you've never noticed this unless you really went deep and zoomed in as hard as possible on the images/video it produces.
+
+As for what 4:4:4 means, this means "store the color information at the same resolution as the brightness information". If the brightness information is 1920x1920, then the color information is also 1920x1920.
+
+
+So, we now have these images encoded in YUV 4:4:4 format. "What's YUV, and why is it 4:4:4?"
+
+You know how RGB formats store the Red, Green, and Blue components of an image? YUV (technically, since it's digital, it should be YCbCr, but they're used interchangeably by basically everyone) is a format where you store the Y, U and V components.
+
+Y is the luminance or brightness component. This is literally a grayscale version of the image.
+
+![enter image description here](https://i.imgur.com/70bTrp7.jpg)
+
+U is the blue-difference chroma component.
+
+![enter image description here](https://i.imgur.com/XoadxOo.jpg)
+
+V is the red-difference chroma component.
+
+![](https://i.imgur.com/GBa1AJb.jpg)
+The reason why people do this is because of compression. Since our brightness/luminance/black-and-white perception is better than our color perception, smart people figured out that we can store the luminance data at a higher quality and resolution than the color parts. 
+
+One of those methods is called "[chroma subsampling](https://en.wikipedia.org/wiki/Chroma_subsampling)". This is literally storing the color information at a lower resolution than the brightness resolution. If you have a camera, chances are, it does exactly this, and you've never noticed this unless you really went deep and zoomed in as hard as possible on the images/video it produces.
+
+As for what 4:4:4 means, this means "store the color information at the same resolution as the brightness information". If the brightness information is 1920x1920, then the color information is also 1920x1920.
+
+
 ## Todo
 - Explain why interleaved images are bad for Paulstretch, even when converted to other pixel formats
 - Proper description for images
 - This is literally the first draft, I wrote this in a day.
+
