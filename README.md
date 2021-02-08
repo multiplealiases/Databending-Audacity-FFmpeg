@@ -389,7 +389,6 @@ As for what 4:4:4 means, this means "store the color information at the same res
 
 
 ## Todo
-- Explain why interleaved images are bad for Paulstretch, even when converted to other pixel formats
 - Proper description for images
 - This is literally the first draft, I wrote this in a day.
 
