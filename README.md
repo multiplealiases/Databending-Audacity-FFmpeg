@@ -108,7 +108,11 @@ This tells FFmpeg to name the output file "flowers-sanity-check.raw".
 It's a common term in programming. It refers to a basic test to quickly evaluate whether a claim or the result of a calculation can possibly be true. In this case, we're testing that our copy of FFmpeg is actually working correctly by just converting an image back to itself. If it can't do that right, something has gone horribly wrong.
 
 ### Back to FFmpeg
-So in essence, it takes a 1920x1920 raw RGB 24-bit image called "flowers.raw" and converts it back to a raw RGB 24-bit image "flowers-sanity-check.raw". This should make an identical copy of the image under a different name.
+So in essence,
+
+	ffmpeg.exe -s 1920x1920 -f rawvideo  -pix_fmt rgb24 -i flowers.raw -f rawvideo -pix_fmt rgb24 flowers-sanity-check.raw
+	
+ takes a 1920x1920 raw RGB 24-bit image called "flowers.raw" and converts it back to a raw RGB 24-bit image "flowers-sanity-check.raw". This should make an identical copy of the image under a different name.
 
 You should see the following, or something like it:
 
@@ -329,7 +333,7 @@ If there's anything you'd like to add or change, contact me on GitHub at [multip
 
 
 ## Footnotes
-### On YUV
+### On YUV 4:4:4
 "What's YUV, and why is it 4:4:4?"
 
 You know how RGB formats store the Red, Green, and Blue components of an image? YUV (technically, since it's digital, it should be YCbCr, but they're used interchangeably by basically everyone) is a format where you store the Y, U and V components.
@@ -351,27 +355,6 @@ One of those methods is called "[chroma subsampling](https://en.wikipedia.org/wi
 
 As for what 4:4:4 means, this means "store the color information at the same resolution as the brightness information". If the brightness information is 1920x1920, then the color information is also 1920x1920.
 
-
-So, we now have these images encoded in YUV 4:4:4 format. "What's YUV, and why is it 4:4:4?"
-
-You know how RGB formats store the Red, Green, and Blue components of an image? YUV (technically, since it's digital, it should be YCbCr, but they're used interchangeably by basically everyone) is a format where you store the Y, U and V components.
-
-Y is the luminance or brightness component. This is literally a grayscale version of the image.
-
-![enter image description here](https://i.imgur.com/70bTrp7.jpg)
-
-U is the blue-difference chroma component.
-
-![enter image description here](https://i.imgur.com/XoadxOo.jpg)
-
-V is the red-difference chroma component.
-
-![](https://i.imgur.com/GBa1AJb.jpg)
-The reason why people do this is because of compression. Since our brightness/luminance/black-and-white perception is better than our color perception, smart people figured out that we can store the luminance data at a higher quality and resolution than the color parts. 
-
-One of those methods is called "[chroma subsampling](https://en.wikipedia.org/wiki/Chroma_subsampling)". This is literally storing the color information at a lower resolution than the brightness resolution. If you have a camera, chances are, it does exactly this, and you've never noticed this unless you really went deep and zoomed in as hard as possible on the images/video it produces.
-
-As for what 4:4:4 means, this means "store the color information at the same resolution as the brightness information". If the brightness information is 1920x1920, then the color information is also 1920x1920.
 
 
 ## Todo
