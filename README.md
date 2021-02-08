@@ -307,21 +307,52 @@ Let's do it again on the same image, but as a bog-standard 24-bit RGB raw image.
 
 I mean, it's different. You get two images from one, pretty good deal, I'd say.
 
+## Why is interleaved bad?
+I'll show you. Convert the original JPEG image into interleaved RAW, and run the following (changing file names if you're using different files):
+
+	ffmpeg -s 1920x1920 -f rawvideo -pix_fmt rgb24 -i flowers-interleaved.raw -f rawvideo -pix_fmt yuv444p flowers-interleaved-yuv444p.raw
+
+Opening it in YUView shows a perfectly normal image, since it's actually getting the right format this time.
+
+![enter image description here](https://i.imgur.com/zbuzGDI.png)
+Import it as raw in Audacity, as usual, then do a Paulstretch of 50 seconds and Amplify at default setttings to prevent color clipping. Never forget to pad out the end of the "audio" with silence. Export.
+
+Run FFmpeg again, but this time converting to 24-bit RGB:
+
+	ffmpeg -s 1920x1920 -f rawvideo -pix_fmt yuv444p -i flowers-interleaved-ps50-yuv444p.raw -f rawvideo -pix_fmt rgb24 flowers-interleaved-rgb24-ps50-yuv444p.raw
+
+Open it in Irfanview, and we get:
+
+![enter image description here](https://i.imgur.com/YtblGGO.jpg)
+I'm not saying it's bad, but it's certainly less colorful than its planar counterpart. It's like [a VHS video undergoing generation loss](https://youtu.be/bmPoqPGitEc). If that's the look you're going for, then work in interleaved, absolutely!
+
 ## Playing with different pixel formats
 Let's databend the same image with the same effect, but in different pixel formats. A list of FFmpeg's available pixel formats can be found by [looking at the source code](https://ffmpeg.org/doxygen/trunk/pixfmt_8h_source.html).
+
+Also, these pixel formats are case-sensitive. When replacing the pix_fmt parameter to make your own, always type them in lowercase.
 
 ### RGBA64LE (packed RGBA 16:16:16:16, 64bpp, 16R, 16G, 16B, 16A, the 2-byte value for each R/G/B/A component is stored as little-endian)
 
 ![enter image description here](https://i.imgur.com/OHRkH9O.jpg)
 
+### RGBA64LE, interleaved source
+![enter image description here](https://i.imgur.com/CKUWzqu.jpg)
+
 ### RGB565 (packed RGB 5:6:5, 16bpp, (msb) 5R 6G 5B(lsb), little-endian)
 
 ![enter image description here](https://i.imgur.com/ViUyaSi.jpg)
+### RGB565, interleaved source 
+![enter image description here](https://i.imgur.com/yM3BI9X.jpg)
+
 ### XYZ12LE (packed XYZ 4:4:4, 36 bpp, (msb) 12X, 12Y, 12Z (lsb), the 2-byte value for each X/Y/Z is stored as little-endian, the 4 lower bits are set to 0)
 
 ![enter image description here](https://i.imgur.com/ESm4BY5.jpg)
+### XYZ12LE, interleaved source
 
-We're up to making 5 different but similar pictures out of 1. I would love to see this automated as an image filter for Photoshop or GIMP (I'd prefer GIMP because I'm broke). I didn't really have much of a rationale for how I chose my pixel formats; I just chose the ones that were "different" from each other.
+![enter image description here](https://i.imgur.com/MENxEmY.jpg)
+### A note on "larger" formats
+
+Some of the formats listed here are larger than 24 bits per pixel. Hence, the raw files they produce are longer and therefore need longer Paulstretch Time Resolutions to prevent that horizontal banding that's characteristic of too-low Time Resolutions. Or don't. Maybe that's the look that you're going for.
 
 ## Conclusion
 I'm not quite sure what to say here. FFmpeg just lets us make new images out of the same image repeatedly.
