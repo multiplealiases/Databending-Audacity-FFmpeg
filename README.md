@@ -359,7 +359,7 @@ I'm not quite sure what to say here. FFmpeg just lets us make new images out of 
 
 I haven't even scratched the surface of what's possible with this. Try different effects to see how the different pixel formats react to different effects.
 
-If there's anything you'd like to add or change, contact me on GitHub at [multiplealiases](https://github.com/multiplealiases). 
+If there's anything you'd like to add or change, fork this repository or contact me on GitHub at [multiplealiases](https://github.com/multiplealiases). 
 
 
 
