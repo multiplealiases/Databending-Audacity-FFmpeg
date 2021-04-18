@@ -386,9 +386,13 @@ One of those methods is called "[chroma subsampling](https://en.wikipedia.org/wi
 
 As for what 4:4:4 means, this means "store the color information at the same resolution as the brightness information". If the brightness information is 1920x1920, then the color information is also 1920x1920.
 
+***
 
+This work is licensed under a
+[Creative Commons Attribution 4.0 International License][cc-by].
 
-## Todo
-- Proper description for images
-- This is literally the first draft, I wrote this in a day.
+[![CC BY 4.0][cc-by-image]][cc-by]
 
+[cc-by]: http://creativecommons.org/licenses/by/4.0/
+[cc-by-image]: https://i.creativecommons.org/l/by/4.0/88x31.png
+[cc-by-shield]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
