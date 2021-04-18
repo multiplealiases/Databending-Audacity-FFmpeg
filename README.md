@@ -388,7 +388,7 @@ As for what 4:4:4 means, this means "store the color information at the same res
 
 ***
 
-This work (excluding the images that origninated from Unsplash) is licensed under a
+This work (excluding the images that originated from Unsplash)  is licensed under a
 [Creative Commons Attribution 4.0 International License][cc-by].
 
 [![CC BY 4.0][cc-by-image]][cc-by]
