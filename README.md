@@ -382,7 +382,7 @@ U is the blue-difference chroma component.
 V is the red-difference chroma component.
 
 ![](https://i.imgur.com/GBa1AJb.jpg)
-The reason why people do this is because of compression. Since our brightness/luminance/black-and-white perception is better than our color perception, smart people figured out that we can store the luminance data at a higher quality and resolution than the color parts. 
+The reason why people do this is because of compression. Since our brightness/luminance/black-and-white perception is better than our color perception, smart people figured out that we can store the luminance data at a higher quality and resolution than the color parts. This means that we end up with images/video that occupy less file space for basically "free". 
 
 One of those methods is called "[chroma subsampling](https://en.wikipedia.org/wiki/Chroma_subsampling)". This is literally storing the color information at a lower resolution than the brightness resolution. If you have a camera, chances are, it does exactly this, and you've never noticed this unless you really went deep and zoomed in as hard as possible on the images/video it produces.
 
